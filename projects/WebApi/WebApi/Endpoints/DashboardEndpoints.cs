@@ -1,23 +1,49 @@
-﻿namespace WebApi.Endpoints;
+﻿using DevHost.DatabaseDataSeeder;
+using Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using WebApi.Mappers;
+
+namespace WebApi.Endpoints;
 
 internal static class DashboardEndpoints
 {
-    private record DashboardKpis
+    internal record DashboardKpis
     {
         public decimal? TotalAssets { get; init; }
         public decimal? TotalLiabilities { get; init; }
-        public decimal? NetWorth { get; init; }
+        public decimal? NetWorth => TotalAssets + TotalLiabilities;
+    }
+
+    internal record IncomeVsExpenses
+    {
+        public decimal? Income { get; init; }
+        public decimal? Expenses { get; init; }
+        public decimal? Difference => Income + Expenses;
+    }
+
+    internal record Category
+    {
+        public long Id { get; init; }
+        public long? ParentId { get; init; }
+        public TransactionCategoryType Type { get; init; }
+        public string? Name { get; init; }
+        public string? ParentName { get; init; }
+        public decimal Value { get; init; }
     }
     internal static IEndpointRouteBuilder MapDashboardEndpoints(this IEndpointRouteBuilder endpoints)
     {
         var group = endpoints.MapGroup("api/dashboard");
-        group.MapGet("kpis", () => new DashboardKpis()
-            {
-                TotalAssets = 100000,
-                TotalLiabilities = 20000,
-                NetWorth = 80000
-            })
+        group.MapGet("kpis", () => TransactionSamples.All.ToDashboardKpis())
             .Produces<DashboardKpis>();
+        group.MapGet("income-vs-expenses", () => TransactionSamples.All.ToDashboardIncomeVsExpenses())
+            .Produces<IncomeVsExpenses>();
+        group.MapGet("categories", async (DatabaseContext databaseContext) =>
+            {
+                var a = (await databaseContext.TransactionCategories.Include(x => x.Transactions)
+                    .Include(c => c.ChildCategories).ToListAsync()).AsQueryable().ToDashboardCashflowItems();
+                return a;
+            })
+            .Produces<IEnumerable<Category>>();
         group.MapGet("history/net-worth", () =>
         {
             var result = new Dictionary<DateOnly, decimal>();

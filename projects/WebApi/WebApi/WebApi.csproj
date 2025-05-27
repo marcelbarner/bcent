@@ -8,6 +8,13 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.4"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.5" />
+        <PackageReference Include="Riok.Mapperly" Version="4.2.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\DevHost\DevHost.DatabaseDataSeeder\DevHost.DatabaseDataSeeder.csproj" />
+      <ProjectReference Include="..\..\Packages\Infrastructure\Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

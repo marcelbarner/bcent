@@ -23,7 +23,7 @@
         </mat-card-header>
         <mat-card-content>
           <!-- Place for Bar Chart -->
-          <app-incomes-vs-expens />
+          <app-incomes-vs-expens [data]="(incomeVsExpenses$ | async) ?? {}"/>
           <!--<ngm-bar-chart [options]="barOptions"></ngm-bar-chart>-->
         </mat-card-content>
       </mat-card>
@@ -39,7 +39,7 @@
         </mat-card-header>
         <mat-card-content>
           <!-- Place for Sankey Chart -->
-          <app-cash-flow-diagram/>
+          <app-cash-flow-diagram [data]="(cashFows$|async) ?? []"/>
           <!--<ngm-sankey-chart [options]="sankeyOptions"></ngm-sankey-chart>-->
         </mat-card-content>
       </mat-card>

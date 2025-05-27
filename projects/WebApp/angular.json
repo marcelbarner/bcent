@@ -75,7 +75,7 @@
           "defaultConfiguration": "development",
           "options": {
             "buildTarget": "Financials:build",
-            "proxyConfig": "proxy.config.json"
+            "proxyConfig": "proxy.conf.js"
           }
         },
         "extract-i18n": {

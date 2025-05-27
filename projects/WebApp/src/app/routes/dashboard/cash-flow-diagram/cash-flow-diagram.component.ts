@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, NgZone, OnDestroy, PLATFORM_ID} from '@angular/core';
+import {AfterViewInit, Component, inject, Input, NgZone, OnDestroy, PLATFORM_ID} from '@angular/core';
 import * as am5 from '@amcharts/amcharts5';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Dark';
 import * as am5flow from '@amcharts/amcharts5/flow';
@@ -15,7 +15,12 @@ export class CashFlowDiagramComponent implements AfterViewInit, OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
 
   private root!: am5.Root;
+  private series?: am5flow.Sankey;
 
+  @Input()
+  public set data(val: {from:string, to:string, value:number}[]) {
+    this.setChartData(val);
+  }
   ngAfterViewInit() {
     // Chart code goes in here
     this.browserOnly(() => {
@@ -30,20 +35,13 @@ export class CashFlowDiagramComponent implements AfterViewInit, OnDestroy {
           valueField: "value",
           paddingRight: 50
         }));
-
+  this.series = series;
       // Define data
       series.nodes.get("colors")!.set("step", 2);
 
 
 // Set data
-// https://www.amcharts.com/docs/v5/charts/flow-charts/#Setting_data
-      series.data.setAll([
-        { from: "Gehalt", to: "Einnahmen", value: 4000 },
-        { from: "Dividende", to: "Einnahmen", value: 200 },
-        { from: "Einnahmen", to: "Ausgaben", value: 3500 },
-        { from: "Ausgaben", to: "Sparen & Investieren", value: 2000 },
-        { from: "Ausgaben", to: "Wohnen", value: 5500 },
-      ]);
+
 
 
 // Make stuff animate on load
@@ -67,5 +65,10 @@ export class CashFlowDiagramComponent implements AfterViewInit, OnDestroy {
         f();
       });
     }
+  }
+
+  setChartData(data:{from:string, to:string, value:number}[]) {
+    this.series?.data.clear();
+    this.series?.data.setAll(data);
   }
 }

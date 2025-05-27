@@ -41,7 +41,6 @@ export class ValueDevelopmentComponent implements AfterViewInit, OnDestroy, OnCh
 
   ngOnChanges(changes: SimpleChanges) {
     if(changes.data && !changes.data.firstChange){
-  //    this.series?.data.clear();
       this.setChartData(this.historyData);
     }
   }
