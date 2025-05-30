@@ -1,4 +1,6 @@
 using DevHost.DatabaseDataSeeder;
+using FastEndpoints;
+using FastEndpoints.Swagger;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Endpoints;
@@ -7,7 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi().AddDbContext<DatabaseContext>(c => c.UseInMemoryDatabase("database"));
+builder.Services
+    .AddFastEndpoints()
+    .AddSwaggerDocument()
+    .AddOpenApi()
+    .AddDbContext<DatabaseContext>(c => c.UseInMemoryDatabase("database"));
 
 var app = builder.Build();
 
@@ -18,6 +24,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseFastEndpoints(c =>
+{
+    c.Endpoints.RoutePrefix = "api";
+})
+.UseSwaggerGen();
 app.MapDashboardEndpoints()
     .MapCategoryEndpoints()
     .MapGet("", async void (DatabaseContext databaseContext, CancellationToken cancellationToken = default) =>

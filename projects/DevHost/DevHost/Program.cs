@@ -7,8 +7,8 @@ var sqlServer = builder.AddSqlServer("sqlserver")
 var database = sqlServer.AddDatabase("sqldatabase");
 
 var webapi = builder.AddProject<Projects.WebApi>("webapi")
-    .WithReference(database)
-    .WaitFor(database)
+    //.WithReference(database)
+    //.WaitFor(database)
     .WithExternalHttpEndpoints();
 
 var databaseMigrationService = builder.AddProject<Projects.DevHost_DatabaseMigrationService>("DatabaseMigrationService")
