@@ -38,6 +38,11 @@ import { FormlyConfigModule } from './formly-config';
 
 import { LoginService } from '@core/authentication/login.service';
 import { FakeLoginService } from './fake-login.service';
+import {ApiModule} from './api/api.module';
+import { withNgxsReduxDevtoolsPlugin } from '@ngxs/devtools-plugin';
+import { withNgxsLoggerPlugin } from '@ngxs/logger-plugin';
+import { provideStore } from '@ngxs/store';
+import { DashboardState } from './routes/dashboard/state/dashboard.state';
 
 // Required for AOT compilation
 function TranslateHttpLoaderFactory(http: HttpClient) {
@@ -77,7 +82,8 @@ export const appConfig: ApplicationConfig = {
     }),
     importProvidersFrom(
       NgxPermissionsModule.forRoot(),
-      FormlyConfigModule.forRoot()
+      FormlyConfigModule.forRoot(),
+      ApiModule.forRoot({rootUrl:""})
     ),
     // ==================================================
     // 👇 ❌ Remove it in the realworld application
@@ -130,6 +136,9 @@ export const appConfig: ApplicationConfig = {
         monthYearA11yLabel: 'MMMM yyyy',
         popupHeaderDateLabel: 'MMM dd, E',
       },
-    }),
+    }), provideStore(
+[DashboardState],
+withNgxsReduxDevtoolsPlugin(),
+withNgxsLoggerPlugin()),
   ],
 };

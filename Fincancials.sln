@@ -30,6 +30,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevHost.DatabaseMigrationSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevHost.DatabaseDataSeeder", "projects\DevHost\DevHost.DatabaseDataSeeder\DevHost.DatabaseDataSeeder.csproj", "{391BA853-503C-431A-B044-590B7BB9CE69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi2", "projects\WebApi\WebApi2\WebApi2.csproj", "{1196E901-19B2-49C8-8D0B-0CE80501EB72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,7 @@ Global
 		{CA69E64E-75A1-4846-806A-61D8D2CF8CF3} = {000C2F4A-CED3-4C14-A7B7-671A2B295C90}
 		{66B511CB-58D4-489D-BA85-C995C034D609} = {41D9E578-0FAF-429F-AB3F-E1B0C87C5B68}
 		{391BA853-503C-431A-B044-590B7BB9CE69} = {41D9E578-0FAF-429F-AB3F-E1B0C87C5B68}
+		{1196E901-19B2-49C8-8D0B-0CE80501EB72} = {E1DFCE0A-776B-4E45-AB00-30A46DA58E3D}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{5C7E3DD6-70DE-4054-BEF1-1D363F5F5CCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -84,5 +87,9 @@ Global
 		{391BA853-503C-431A-B044-590B7BB9CE69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{391BA853-503C-431A-B044-590B7BB9CE69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{391BA853-503C-431A-B044-590B7BB9CE69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1196E901-19B2-49C8-8D0B-0CE80501EB72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1196E901-19B2-49C8-8D0B-0CE80501EB72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1196E901-19B2-49C8-8D0B-0CE80501EB72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1196E901-19B2-49C8-8D0B-0CE80501EB72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

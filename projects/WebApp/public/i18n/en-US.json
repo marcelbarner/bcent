@@ -2,7 +2,8 @@
   "dashboard": {
     "total-assets": "Total Assets",
     "total-liabilities": "Total Liabilities",
-    "net-worth": "Net Worth"
+    "net-worth": "Net Worth",
+    "income-vs-expense": "Income vs Expense"
   },
   "menu": {
     "dashboard": "Dashboard",

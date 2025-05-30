@@ -6,7 +6,7 @@ var sqlServer = builder.AddSqlServer("sqlserver")
     .WithDataVolume("SqlServer");
 var database = sqlServer.AddDatabase("sqldatabase");
 
-var webapi = builder.AddProject<Projects.WebApi>("webapi")
+var webapi = builder.AddProject<Projects.WebApi2>("webapi")
     //.WithReference(database)
     //.WaitFor(database)
     .WithExternalHttpEndpoints();

@@ -5,10 +5,12 @@ import * as am5 from '@amcharts/amcharts5';
 import * as am5xy from '@amcharts/amcharts5/xy';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Dark';
 import {AxisRenderer} from '@amcharts/amcharts5/xy';
+import { MatCard, MatCardContent, MatCardHeader, MatCardTitle } from '@angular/material/card';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-incomes-vs-expens',
-  imports: [],
+  imports: [MatCard, MatCardHeader, MatCardTitle, MatCardContent, TranslatePipe],
   templateUrl: './incomes-vs-expens.component.html',
   styleUrl: './incomes-vs-expens.component.css'
 })
@@ -19,6 +21,8 @@ export class IncomesVsExpensComponent implements AfterViewInit, OnDestroy{
   private root!: am5.Root;
   private series?: am5xy.ColumnSeries;
   private xAxis?: am5xy.CategoryAxis<AxisRenderer>;
+
+  @Input() titleKey: string = '';
 
   @Input()
   public set data(value: {income?:number, expense?:number, difference?:number}) {

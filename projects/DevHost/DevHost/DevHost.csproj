@@ -18,6 +18,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\WebApi\WebApi2\WebApi2.csproj" />
       <ProjectReference Include="..\..\WebApi\WebApi\WebApi.csproj" />
       <ProjectReference Include="..\..\WebApp\WebApp.esproj" />
       <ProjectReference Include="..\..\Worker\Worker\Worker.csproj" />

@@ -2,14 +2,14 @@ import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {PageHeaderComponent} from '@shared';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
-import {CashFlowDiagramComponent} from './cash-flow-diagram/cash-flow-diagram.component';
-import {IncomesVsExpensComponent} from './incomes-vs-expens/incomes-vs-expens.component';
-import {ValueDevelopmentComponent} from './value-development/value-development.component';
-import {KpiCardComponent} from './kpi-card/kpi-card.component';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {AsyncPipe} from '@angular/common';
-import {map} from 'rxjs/operators';
+import {TotalAssetsKpiComponent} from './widgets/total-assets-kpi.component';
+import { DisplayGrid, GridsterComponent, GridsterConfig, GridsterItem, GridsterItemComponent, GridType } from 'angular-gridster2';
+import { DynamicComponent } from 'ng-dynamic-component';
+import { TotalNetWorthKpiComponent } from './widgets/total-net-worth-kpi.component';
+import { TotalLiabilitiesKpiComponent } from './widgets/total-liabilities-kpi.component';
+import { ca } from 'date-fns/locale';
+import { IncomeVsExpenseWidgetComponent } from './widgets/income-vs-expense-widget.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,53 +17,46 @@ import {map} from 'rxjs/operators';
   styleUrl: './dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [PageHeaderComponent, MatCardModule, MatIconModule, CashFlowDiagramComponent, IncomesVsExpensComponent, ValueDevelopmentComponent, KpiCardComponent, AsyncPipe],
+  imports: [PageHeaderComponent, MatCardModule, MatIconModule, TotalAssetsKpiComponent, GridsterComponent, GridsterItemComponent,DynamicComponent],
 })
 export class DashboardComponent {
-  private readonly http = inject(HttpClient);
-  public kpis$: Observable<{
-    totalAssets: number,
-    totalLiabilities: number,
-    netWorth: number
-  }>;
 
-  public netWorthHistories$: Observable<Record<string, number>>;
-  public incomeVsExpenses$:Observable<{income:number, expenses:number, difference:number}>
-  public cashFows$: Observable<{ from:string, to:string, value:number }[]>;
-  constructor() {
-    this.kpis$ = this.http.get<{ totalAssets: number,
-      totalLiabilities: number,
-      netWorth: number
-    }>("api/dashboard/kpis");
-    this.netWorthHistories$ = this.http.get<Record<string,number>>("api/dashboard/history/net-worth");
-    this.incomeVsExpenses$ = this.http.get<{income:number, expenses:number, difference:number}>("api/dashboard/income-vs-expenses");
-    this.cashFows$ = this.http
-      .get<{id:number, parentId?:number, name:string, parentName:string, value:number, type: 0|1}[]>("api/dashboard/categories")
-      .pipe(
-        map(res => {
-          const cashflow = res.filter(c => c.value !== 0).map(c => (c.type == 0 ?{
-            from: c.id + c.name,
-            to: c.parentName ? c.parentId + c.parentName : 'Income',
-            value: c.value
-          }:
-            {
-              to: c.id + c.name,
-              from: c.parentName ? c.parentId + c.parentName : 'Expense',
-              value: c.value * -1
-            }));
-            const income = res.filter(c => c.type === 0 && c.value != 0 && !c.parentId).reduce((acc, c) => acc + c.value, 0);
-            const expense = -1 * res.filter(c => c.type === 1 && c.value != 0 && !c.parentId).reduce((acc, c) => acc + c.value, 0);
-          cashflow.push({
-            from: 'Income',
-            to: 'Expense',
-            value: income > expense ? expense : income
-          })
-          console.log(income);
-          console.log(expense);
-          console.table(cashflow);
-          return cashflow;
-        })
-      );
+  options: GridsterConfig = {
+      gridType: GridType.Fit,
+      displayGrid: DisplayGrid.None,
+      disableWindowResize: false,
+      scrollToNewItems: false,
+      disableWarnings: false,
+      ignoreMarginInRow: false,
+      minCols: 3,
+      minRows:8,
+      outerMargin: false
+      // itemResizeCallback: item => {
+      //   // update DB with new size
+      //   // send the update to widgets
+      //   this.resizeEvent.emit(item);
+      // }
+    };
 
-  }
+     dashboard: GridsterItem[]= [
+      { cols: 2, rows: 1, y: 0, x: 0, type: 'widgetA' },
+      { cols: 2, rows: 1, y: 0, x: 2, type: 'widgetB' },
+      { cols: 2, rows: 1, y: 0, x: 4, type: 'widgetC' },
+      { cols: 3, rows:3, y:1, x: 0, type: 'widgetD' },
+    ];
+
+    getWidgetComponent(item: GridsterItem): any {
+      switch (item.type) {
+        case 'widgetA':
+          return TotalAssetsKpiComponent;
+        case 'widgetB':
+          return TotalLiabilitiesKpiComponent; // Replace with actual component
+        case 'widgetC':
+          return TotalNetWorthKpiComponent; // Replace with actual component
+        case 'widgetD':
+          return IncomeVsExpenseWidgetComponent; // Replace with actual component
+        default:
+          return null;
+      }
+    }
 }

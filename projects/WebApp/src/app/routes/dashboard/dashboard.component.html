@@ -1,30 +1,39 @@
-<page-header/>
+<div style="display: flex; flex-direction: column; height: 100vh;">
+
+  <page-header/>
+  
+  <gridster [options]="options" style="flex-grow: 1;">
+    @for (item of dashboard; track item) {
+      <gridster-item [item]="item">
+        <ndc-dynamic [ndcDynamicComponent]="getWidgetComponent(item)" />
+      </gridster-item>
+    }
+  </gridster>
+</div>
 
 <div class="dashboard-container">
   <div class="row">
     <div class="col-4">
-      <app-kpi-card [value]="(kpis$|async)?.totalAssets ?? 0" [trendValue]="2000" titleKey="dashboard.total-assets"/>
+      <app-total-assets-kpi />
     </div>
 
-    <div class="col-4">
+    <!--<div class="col-4">
       <app-kpi-card [value]="(kpis$|async)?.totalLiabilities ?? 0" [trendValue]="-1000" [reverse]="true" titleKey="dashboard.total-liabilities"/>
     </div>
 
     <div class="col-4">
       <app-kpi-card [value]="(kpis$|async)?.netWorth ?? 0" [trendValue]="3000" titleKey="dashboard.net-worth"/>
-    </div>
+    </div>-->
   </div>
 
-  <div class="row">
+ <!-- <div class="row">
     <div class="col-6">
       <mat-card class="">
         <mat-card-header>
           <mat-card-title>Einnahmen vs. Ausgaben</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <!-- Place for Bar Chart -->
           <app-incomes-vs-expens [data]="(incomeVsExpenses$ | async) ?? {}"/>
-          <!--<ngm-bar-chart [options]="barOptions"></ngm-bar-chart>-->
         </mat-card-content>
       </mat-card>
     </div>
@@ -38,9 +47,7 @@
           <mat-card-title>Verteilung der Ausgaben</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <!-- Place for Sankey Chart -->
           <app-cash-flow-diagram [data]="(cashFows$|async) ?? []"/>
-          <!--<ngm-sankey-chart [options]="sankeyOptions"></ngm-sankey-chart>-->
         </mat-card-content>
       </mat-card>
     </div>
@@ -52,11 +59,9 @@
             <mat-card-title>Nettoentwicklung</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <!-- Place for Line Chart -->
             <app-value-development [data]="(netWorthHistories$|async) ?? {}" />
-            <!--<ngm-line-chart [options]="lineOptions"></ngm-line-chart>-->
           </mat-card-content>
         </mat-card>
     </div>
-  </div>
+  </div>-->
 </div>
