@@ -6,8 +6,8 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
+import { AccountsService } from './services/accounts.service';
 import { DashboardService } from './services/dashboard.service';
-import { ApiService } from './services/api.service';
 
 /**
  * Module that provides all services and configuration.
@@ -17,8 +17,8 @@ import { ApiService } from './services/api.service';
   exports: [],
   declarations: [],
   providers: [
+    AccountsService,
     DashboardService,
-    ApiService,
     ApiConfiguration
   ],
 })

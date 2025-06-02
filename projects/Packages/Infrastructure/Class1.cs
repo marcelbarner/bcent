@@ -1,4 +1,5 @@
-﻿using System.Transactions;
+﻿using System.Text.Json.Serialization;
+using System.Transactions;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
@@ -33,9 +34,12 @@ public class TransactionCategory
     public long Id { get; set; }
     public string? Name { get; set; }
     public TransactionCategoryType Type { get; set; } = TransactionCategoryType.Expense;
+    [JsonIgnore]
     public ICollection<Transaction>? Transactions { get; set; }
     public long? ParentTransactionCategoryId { get; set; }
+    [JsonIgnore]
     public TransactionCategory? ParentCategory { get; set; }
+    [JsonIgnore]
     public ICollection<TransactionCategory>? ChildCategories { get; set; }
 }
 

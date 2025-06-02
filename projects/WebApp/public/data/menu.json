@@ -11,6 +11,12 @@
       "name": "settings",
       "type": "link",
       "icon": "settings"
+    },
+    {
+      "route": "transactions",
+      "name": "transactions",
+      "type": "link",
+      "icon": "settings"
     }
   ]
 }

@@ -6,11 +6,6 @@ var sqlServer = builder.AddSqlServer("sqlserver")
     .WithDataVolume("SqlServer");
 var database = sqlServer.AddDatabase("sqldatabase");
 
-var webapi = builder.AddProject<Projects.WebApi2>("webapi")
-    //.WithReference(database)
-    //.WaitFor(database)
-    .WithExternalHttpEndpoints();
-
 var databaseMigrationService = builder.AddProject<Projects.DevHost_DatabaseMigrationService>("DatabaseMigrationService")
     .WithReference(database)
     .WaitFor(database);
@@ -18,7 +13,14 @@ var databaseMigrationService = builder.AddProject<Projects.DevHost_DatabaseMigra
 var databaseDataSeeder = builder.AddProject<Projects.DevHost_DatabaseDataSeeder>("DatabaseDataSeeder")
     .WithReference(database)
     .WaitFor(database)
+    .WaitForCompletion(databaseMigrationService)
     .WithExplicitStart();
+
+var webapi = builder.AddProject<Projects.WebApi2>("webapi")
+    .WithReference(database)
+    .WaitFor(database)
+    .WaitForCompletion(databaseMigrationService)
+    .WithExternalHttpEndpoints();
 
 builder.AddNpmApp("webapp", "../../WebApp")
     .WithHttpEndpoint(env: "PORT")

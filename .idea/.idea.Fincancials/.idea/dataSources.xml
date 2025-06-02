@@ -36,5 +36,40 @@
       <jdbc-url>Server=127.0.0.1,61065;User ID=sa;Password=(+HnCCdRRFVnarM6wg~jHx;TrustServerCertificate=true;Initial Catalog=sqldatabase</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="sqldatabase" uuid="30d7694a-7605-4480-888e-f26c299fecc2">
+      <driver-ref>sqlserver.jb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.jetbrains.jdbc.sqlserver.SqlServerDriver</jdbc-driver>
+      <jdbc-url>Server=127.0.0.1,62852;User ID=sa;Password=sRC3+0QSs60tCHza3k53gF;TrustServerCertificate=true;Initial Catalog=sqldatabase</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="sqldatabase" uuid="29388b9a-10f9-4796-95ab-aadbe1353956">
+      <driver-ref>sqlserver.jb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.jetbrains.jdbc.sqlserver.SqlServerDriver</jdbc-driver>
+      <jdbc-url>Server=127.0.0.1,65143;User ID=sa;Password=sRC3+0QSs60tCHza3k53gF;TrustServerCertificate=true;Initial Catalog=sqldatabase</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="sqldatabase" uuid="3cd2fa56-29e1-4724-985c-bb5149d1054a">
+      <driver-ref>sqlserver.jb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.jetbrains.jdbc.sqlserver.SqlServerDriver</jdbc-driver>
+      <jdbc-url>Server=127.0.0.1,51230;User ID=sa;Password=sRC3+0QSs60tCHza3k53gF;TrustServerCertificate=true;Initial Catalog=sqldatabase</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="sqldatabase" uuid="a9268ea5-d710-4cfe-8116-9590874f8002">
+      <driver-ref>sqlserver.jb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.jetbrains.jdbc.sqlserver.SqlServerDriver</jdbc-driver>
+      <jdbc-url>Server=127.0.0.1,63556;User ID=sa;Password=sRC3+0QSs60tCHza3k53gF;TrustServerCertificate=true;Initial Catalog=sqldatabase</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="sqldatabase" uuid="6d711977-ce5f-4572-a5b4-657d3b76c81e">
+      <driver-ref>sqlserver.jb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.jetbrains.jdbc.sqlserver.SqlServerDriver</jdbc-driver>
+      <jdbc-url>Server=127.0.0.1,64034;User ID=sa;Password=sRC3+0QSs60tCHza3k53gF;TrustServerCertificate=true;Initial Catalog=sqldatabase</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

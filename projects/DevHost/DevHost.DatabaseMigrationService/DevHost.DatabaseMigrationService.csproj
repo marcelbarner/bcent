@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="9.3.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Packages\Infrastructure.SqlMigrations\Infrastructure.SqlMigrations.csproj" />
+    <ProjectReference Include="..\..\Packages\ServiceDefaults\ServiceDefaults.csproj" />
   </ItemGroup>
 </Project>

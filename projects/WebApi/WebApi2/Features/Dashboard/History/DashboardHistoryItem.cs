@@ -1,3 +1,5 @@
-﻿namespace WebApi2.Features.Dashboard.History;
+﻿using System.ComponentModel.DataAnnotations;
 
-public record DashboardHistoryItem(DateOnly Date, decimal Value);
+namespace WebApi2.Features.Dashboard.History;
+
+public record DashboardHistoryItem([property:Required]DateOnly Date, [property:Required]decimal Value);

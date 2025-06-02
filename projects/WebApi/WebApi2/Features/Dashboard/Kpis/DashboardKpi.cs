@@ -1,3 +1,5 @@
-﻿namespace WebApi2.Features.Dashboard.Kpis;
+﻿using System.ComponentModel.DataAnnotations;
 
-public record DashboardKpi(decimal TotalValue, decimal TrendValue);
+namespace WebApi2.Features.Dashboard.Kpis;
+
+public record DashboardKpi([property:Required]decimal TotalValue, [property:Required]decimal TrendValue);

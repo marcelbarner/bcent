@@ -19,6 +19,10 @@ export const routes: Routes = [
         path: 'settings',
         loadComponent: () => import('./routes/settings/settings.component').then(c => c.SettingsComponent)
       },
+      {
+        path: 'transactions',
+        loadComponent: () => import('./routes/transactions-overview/transactions-overview.component').then(c => c.TransactionsOverviewComponent)
+      },
       {path: '403', loadComponent: () => import('./routes/sessions/403.component').then(c => c.Error403Component)},
       {path: '404', loadComponent: () => import('./routes/sessions/404.component').then(c => c.Error404Component)},
       {path: '500', loadComponent: () => import('./routes/sessions/500.component').then(c => c.Error500Component)},

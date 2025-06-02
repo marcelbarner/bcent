@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Design;
 namespace Infrastructure.SqlMigrations;
 
 // ReSharper disable once UnusedType.Global
-internal class DatabaseContextFactory: IDesignTimeDbContextFactory<DatabaseContext>
+public class DatabaseContextFactory: IDesignTimeDbContextFactory<DatabaseContext>
 {
     public DatabaseContext CreateDbContext(string[] args)
     {

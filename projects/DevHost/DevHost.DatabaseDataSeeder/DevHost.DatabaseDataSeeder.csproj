@@ -8,10 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FlexLabs.EntityFrameworkCore.Upsert" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.5" />
+    <PackageReference Include="Aspire.Microsoft.EntityFrameworkCore.SqlServer" Version="9.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Packages\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Packages\ServiceDefaults\ServiceDefaults.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Data\**" />
+    <None Include="Data\**" />
   </ItemGroup>
 </Project>

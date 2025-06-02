@@ -1,6 +1,9 @@
-﻿namespace WebApi2.Features.Dashboard.IncomeVsExpense;
+﻿using System.ComponentModel.DataAnnotations;
 
-public record DashboardIncomeVsExpense(decimal Income, decimal Expense)
+namespace WebApi2.Features.Dashboard.IncomeVsExpense;
+
+public record DashboardIncomeVsExpense([property:Required]decimal Income, [property:Required]decimal Expense)
 {
+    [Required]
     public decimal Difference => Income - Expense;
 };

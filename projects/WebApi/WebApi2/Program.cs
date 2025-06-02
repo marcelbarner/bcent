@@ -3,13 +3,17 @@ using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var bld = WebApplication.CreateBuilder(args);
+
 bld.Services
     .AddAuthenticationJwtBearer(s => s.SigningKey = bld.Configuration["Auth:JwtKey"])
     .AddAuthorization()
     .AddFastEndpoints(o => o.SourceGeneratorDiscoveredTypes = DiscoveredTypes.All)
     .SwaggerDocument()
-    .AddDbContext<DatabaseContext>(c => { c.UseInMemoryDatabase("database").UseProjectables(); });
-;
+    .AddDbContext<DatabaseContext>(options =>
+    {
+        options.UseSqlServer(bld.Configuration.GetConnectionString("sqldatabase"));
+        options.UseProjectables();
+    });
 
 var app = bld.Build();
 app.UseAuthentication()
@@ -21,11 +25,5 @@ app.UseAuthentication()
         c.Errors.UseProblemDetails();
     })
     .UseSwaggerGen();
-app.MapGet("", async void (DatabaseContext databaseContext, CancellationToken cancellationToken = default) =>
-{
-    databaseContext.AddRange(TransactionCategories.All);
-    databaseContext.Add(TransactionAccounts.CheckingAccount);
-    databaseContext.AddRange(TransactionSamples.All);
-    await databaseContext.SaveChangesAsync(cancellationToken);
-});
+
 app.Run();
