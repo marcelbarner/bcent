@@ -1,10 +1,9 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {KpiCardComponent} from '../kpi-card/kpi-card.component';
 import {Store} from '@ngxs/store';
 import {LoadIncomesVsExpensesAction, LoadTotalAssetsKpiAction} from '../state/dashboard.actions';
 import {DashboardState} from '../state/dashboard.state';
 import {AsyncPipe} from '@angular/common';
-import { IncomesVsExpensComponent } from '../incomes-vs-expens/incomes-vs-expens.component';
+import { IncomesVsExpensComponent } from '../components/incomes-vs-expens/incomes-vs-expens.component';
 
 @Component({
   selector: 'app-income-vs-expense-widget',

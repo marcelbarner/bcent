@@ -1,5 +1,7 @@
 .matero-page-header {
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
   padding: 1rem;
   margin-bottom: 1rem;
   color: rgba(255, 255, 255, .87);

@@ -1,5 +1,5 @@
 ﻿import {Component, inject, OnInit} from '@angular/core';
-import {KpiCardComponent} from '../kpi-card/kpi-card.component';
+import {KpiCardComponent} from '../components/kpi-card/kpi-card.component';
 import {Store} from '@ngxs/store';
 import {LoadTotalAssetsKpiAction, LoadTotalLiabilitiesKpiAction} from '../state/dashboard.actions';
 import {DashboardState} from '../state/dashboard.state';

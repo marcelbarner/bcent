@@ -43,6 +43,8 @@ import { withNgxsReduxDevtoolsPlugin } from '@ngxs/devtools-plugin';
 import { withNgxsLoggerPlugin } from '@ngxs/logger-plugin';
 import { provideStore } from '@ngxs/store';
 import { DashboardState } from './routes/dashboard/state/dashboard.state';
+import {CategoriesState} from './states/categories.state';
+import {AccountsState} from './states/accounts.state';
 
 // Required for AOT compilation
 function TranslateHttpLoaderFactory(http: HttpClient) {
@@ -137,7 +139,7 @@ export const appConfig: ApplicationConfig = {
         popupHeaderDateLabel: 'MMM dd, E',
       },
     }), provideStore(
-[DashboardState],
+[DashboardState, CategoriesState, AccountsState],
 withNgxsReduxDevtoolsPlugin(),
 withNgxsLoggerPlugin()),
   ],

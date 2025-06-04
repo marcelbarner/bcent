@@ -11,6 +11,9 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { webApi2FeaturesDashboardCashflowCashflowEndpoint } from '../fn/dashboard/web-api-2-features-dashboard-cashflow-cashflow-endpoint';
+import { WebApi2FeaturesDashboardCashflowCashflowEndpoint$Params } from '../fn/dashboard/web-api-2-features-dashboard-cashflow-cashflow-endpoint';
+import { WebApi2FeaturesDashboardCashflowCashFlowItem } from '../models/web-api-2-features-dashboard-cashflow-cash-flow-item';
 import { WebApi2FeaturesDashboardHistoryDashboardHistoryItem } from '../models/web-api-2-features-dashboard-history-dashboard-history-item';
 import { webApi2FeaturesDashboardHistoryTotalNetWorthHistoryTotalNetWorthEndpoint } from '../fn/dashboard/web-api-2-features-dashboard-history-total-net-worth-history-total-net-worth-endpoint';
 import { WebApi2FeaturesDashboardHistoryTotalNetWorthHistoryTotalNetWorthEndpoint$Params } from '../fn/dashboard/web-api-2-features-dashboard-history-total-net-worth-history-total-net-worth-endpoint';
@@ -29,6 +32,31 @@ import { WebApi2FeaturesDashboardKpisTotalNetWorthEndpoint$Params } from '../fn/
 export class DashboardService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `webApi2FeaturesDashboardCashflowCashflowEndpoint()` */
+  static readonly WebApi2FeaturesDashboardCashflowCashflowEndpointPath = '/api/dashboard/cash-flow';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `webApi2FeaturesDashboardCashflowCashflowEndpoint()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  webApi2FeaturesDashboardCashflowCashflowEndpoint$Response(params?: WebApi2FeaturesDashboardCashflowCashflowEndpoint$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<WebApi2FeaturesDashboardCashflowCashFlowItem>>> {
+    return webApi2FeaturesDashboardCashflowCashflowEndpoint(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `webApi2FeaturesDashboardCashflowCashflowEndpoint$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  webApi2FeaturesDashboardCashflowCashflowEndpoint(params?: WebApi2FeaturesDashboardCashflowCashflowEndpoint$Params, context?: HttpContext): Observable<Array<WebApi2FeaturesDashboardCashflowCashFlowItem>> {
+    return this.webApi2FeaturesDashboardCashflowCashflowEndpoint$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<WebApi2FeaturesDashboardCashflowCashFlowItem>>): Array<WebApi2FeaturesDashboardCashflowCashFlowItem> => r.body)
+    );
   }
 
   /** Path part for operation `webApi2FeaturesDashboardHistoryTotalNetWorthHistoryTotalNetWorthEndpoint()` */

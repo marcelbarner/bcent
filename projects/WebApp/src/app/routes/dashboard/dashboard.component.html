@@ -1,7 +1,14 @@
 <div style="display: flex; flex-direction: column; height: 100vh;">
 
-  <page-header/>
-  
+  <page-header>
+    <mat-form-field [subscriptSizing]="'dynamic'">
+      <mat-label>From</mat-label>
+      <mtx-datetimepicker #datetimePicker [type]="'date'"></mtx-datetimepicker>
+      <input [mtxDatetimepicker]="datetimePicker" matInput required [ngModel]="from$ | async" (ngModelChange)="setfrom($event)"/>
+      <mtx-datetimepicker-toggle [for]="datetimePicker" matSuffix></mtx-datetimepicker-toggle>
+    </mat-form-field>
+  </page-header>
+
   <gridster [options]="options" style="flex-grow: 1;">
     @for (item of dashboard; track item) {
       <gridster-item [item]="item">

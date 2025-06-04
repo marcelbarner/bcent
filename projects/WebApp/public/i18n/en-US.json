@@ -3,11 +3,13 @@
     "total-assets": "Total Assets",
     "total-liabilities": "Total Liabilities",
     "net-worth": "Net Worth",
-    "income-vs-expense": "Income vs Expense"
+    "income-vs-expense": "Income vs Expense",
+    "cash-flow": "Cash flow"
   },
   "menu": {
     "dashboard": "Dashboard",
-    "settings": "Settings"
+    "settings": "Settings",
+    "transactions": "Transactions"
   },
   "settings": {
     "categories": {

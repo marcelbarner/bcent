@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Runtime.Serialization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Infrastructure;
@@ -33,10 +34,20 @@ public class Worker(IServiceProvider serviceProvider, IHostApplicationLifetime h
     private async Task SeedCategoriesAsync(DatabaseContext database, CancellationToken cancellationToken)
     {
         var categoriesJson = await File.ReadAllTextAsync("data/categories.json", cancellationToken);
-        var categories = JsonSerializer.Deserialize<TransactionCategory[]>(categoriesJson) ??
+        var categories = JsonSerializer.Deserialize<TransactionCategory[]>(categoriesJson, JsonSerializerOptions.Web) ??
                          TransactionCategories.All;
-        database.AddRange(categories);
-        await database.SaveChangesAsync(cancellationToken);
+
+        foreach (var category in categories.OrderBy(c => c.Id))
+        {
+            var expectedId = category.Id;
+            category.Id = 0;
+            database.Add(category);
+            await database.SaveChangesAsync(cancellationToken);
+            if (expectedId != category.Id)
+            {
+                throw new InvalidDataContractException();
+            }
+        }
     }
     private async Task SeedAccountsAsync(DatabaseContext database, CancellationToken cancellationToken)
     {

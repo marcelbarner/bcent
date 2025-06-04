@@ -11,6 +11,9 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { WebApi2FeaturesAccountsAccount } from '../models/web-api-2-features-accounts-account';
+import { webApi2FeaturesAccountsAccountsEndpoint } from '../fn/accounts/web-api-2-features-accounts-accounts-endpoint';
+import { WebApi2FeaturesAccountsAccountsEndpoint$Params } from '../fn/accounts/web-api-2-features-accounts-accounts-endpoint';
 import { WebApi2FeaturesAccountsTransaction } from '../models/web-api-2-features-accounts-transaction';
 import { webApi2FeaturesAccountsTransactionsEndpoint } from '../fn/accounts/web-api-2-features-accounts-transactions-endpoint';
 import { WebApi2FeaturesAccountsTransactionsEndpoint$Params } from '../fn/accounts/web-api-2-features-accounts-transactions-endpoint';
@@ -19,6 +22,31 @@ import { WebApi2FeaturesAccountsTransactionsEndpoint$Params } from '../fn/accoun
 export class AccountsService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `webApi2FeaturesAccountsAccountsEndpoint()` */
+  static readonly WebApi2FeaturesAccountsAccountsEndpointPath = '/api/accounts';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `webApi2FeaturesAccountsAccountsEndpoint()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  webApi2FeaturesAccountsAccountsEndpoint$Response(params?: WebApi2FeaturesAccountsAccountsEndpoint$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<WebApi2FeaturesAccountsAccount>>> {
+    return webApi2FeaturesAccountsAccountsEndpoint(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `webApi2FeaturesAccountsAccountsEndpoint$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  webApi2FeaturesAccountsAccountsEndpoint(params?: WebApi2FeaturesAccountsAccountsEndpoint$Params, context?: HttpContext): Observable<Array<WebApi2FeaturesAccountsAccount>> {
+    return this.webApi2FeaturesAccountsAccountsEndpoint$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<WebApi2FeaturesAccountsAccount>>): Array<WebApi2FeaturesAccountsAccount> => r.body)
+    );
   }
 
   /** Path part for operation `webApi2FeaturesAccountsTransactionsEndpoint()` */

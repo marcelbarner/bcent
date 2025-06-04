@@ -11,11 +11,21 @@ import { RequestBuilder } from '../../request-builder';
 import { WebApi2FeaturesAccountsTransaction } from '../../models/web-api-2-features-accounts-transaction';
 
 export interface WebApi2FeaturesAccountsTransactionsEndpoint$Params {
+  from?: string | null;
+  to?: string | null;
+  categoryId?: number | null;
+  accountId?: number | null;
+  search?: string | null;
 }
 
 export function webApi2FeaturesAccountsTransactionsEndpoint(http: HttpClient, rootUrl: string, params?: WebApi2FeaturesAccountsTransactionsEndpoint$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<WebApi2FeaturesAccountsTransaction>>> {
   const rb = new RequestBuilder(rootUrl, webApi2FeaturesAccountsTransactionsEndpoint.PATH, 'get');
   if (params) {
+    rb.query('from', params.from, {});
+    rb.query('to', params.to, {});
+    rb.query('categoryId', params.categoryId, {});
+    rb.query('accountId', params.accountId, {});
+    rb.query('search', params.search, {});
   }
 
   return http.request(

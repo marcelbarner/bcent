@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { AccountsService } from './services/accounts.service';
+import { CategoriesService } from './services/categories.service';
 import { DashboardService } from './services/dashboard.service';
 
 /**
@@ -18,6 +19,7 @@ import { DashboardService } from './services/dashboard.service';
   declarations: [],
   providers: [
     AccountsService,
+    CategoriesService,
     DashboardService,
     ApiConfiguration
   ],

@@ -7,14 +7,14 @@
       "icon": "dashboard"
     },
     {
-      "route": "settings",
-      "name": "settings",
-      "type": "link",
-      "icon": "settings"
-    },
-    {
       "route": "transactions",
       "name": "transactions",
+      "type": "link",
+      "icon": "payments"
+    },
+    {
+      "route": "settings",
+      "name": "settings",
       "type": "link",
       "icon": "settings"
     }

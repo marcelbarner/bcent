@@ -13,3 +13,17 @@ export class LoadTotalNetWorthKpiAction {
 export class LoadIncomesVsExpensesAction {
   static readonly type = '[Dashboard] Load incomes vs expenses';
 }
+
+export class LoadCashFlowAction {
+  static readonly type = '[Dashboard] Load cash flow';
+}
+
+export class ReloadDashboardAction {
+  static readonly type = '[Dashboard] Reload dashboard';
+}
+
+export class SetFromDateAction {
+  static readonly type = '[Dashboard] Set From date';
+  constructor(public readonly date: Date) {
+  }
+}
