@@ -12,13 +12,13 @@ updates:
     # Check the npm registry for updates every day (weekdays)
     schedule:
       interval: "daily"
- - package-ecosystem: "nuget"
-   directories: "*"
+  - package-ecosystem: "nuget"
+    directories: "*"
     # Check the npm registry for updates every day (weekdays)
-   schedule:
-     interval: "daily"
- - package-ecosystem: "dotnet-sdk"
-   directories: "*"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "dotnet-sdk"
+    directories: "*"
     # Check the npm registry for updates every day (weekdays)
-   schedule:
-     interval: "daily"
+    schedule:
+      interval: "daily"
