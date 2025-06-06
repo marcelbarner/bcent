@@ -1,9 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>dotnet-DevHost.DatabaseMigrationService-05eefe7b-4640-487a-83bf-2f6d6c7e8300</UserSecretsId>
   </PropertyGroup>
 

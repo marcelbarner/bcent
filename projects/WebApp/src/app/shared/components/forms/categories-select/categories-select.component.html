@@ -1,0 +1,15 @@
+<mat-form-field [subscriptSizing]="'dynamic'">
+  <mat-label>{{ multiple ? 'categories' : 'category' |translate}}</mat-label>
+  <mtx-select
+    [multiple]="multiple"
+    [disabled]="disabled"
+    [value]="value"
+    (selectionChange)="onSelectionChange($event)"
+  >
+    @for (cat of (categories$ | async); track cat.id) {
+      <mtx-option [value]="cat.id">
+        {{ cat.name }}
+      </mtx-option>
+    }
+  </mtx-select>
+</mat-form-field>

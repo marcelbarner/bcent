@@ -1,9 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>dotnet-DevHost.DatabaseDataSeeder-7511ed95-392d-4fcc-89a8-67625a388029</UserSecretsId>
   </PropertyGroup>
 

@@ -10,10 +10,18 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {AccountsState} from '../../states/accounts.state';
+import {MatDialog} from '@angular/material/dialog';
+import {
+  TransactionOverlayComponent
+} from '@shared/components/transactions/transaction-overlay/transaction-overlay.component';
+import { MAT_DIALOG_RIGHT_OVERLAY_CONFIG } from '@shared/utils/dialog-configs';
+import { CategoriesSelectComponent } from "../../shared/components/forms/categories-select/categories-select.component";
+import { MtxOption, MtxSelect } from '@ng-matero/extensions/select';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-transactions-overview',
-  imports: [MtxGridModule, AsyncPipe, CurrencyPipe, DatePipe, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule],
+  imports: [MtxGridModule, AsyncPipe, TranslatePipe, DatePipe, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule, CategoriesSelectComponent, MtxSelect, MtxOption],
   templateUrl: './transactions-overview.component.html',
   styleUrl: './transactions-overview.component.css'
 })
@@ -21,7 +29,8 @@ export class TransactionsOverviewComponent {
   private readonly apiService = inject(AccountsService);
   private readonly store = inject(Store);
   private readonly fb = inject(FormBuilder)
-  private categorie$ = this.store.select(CategoriesState.isLoaded)
+  private readonly dialogService = inject(MatDialog)
+  public categorie$ = this.store.select(CategoriesState.isLoaded)
     .pipe(
       filter(isLoaded => isLoaded),
       switchMap(() => this.store.select(CategoriesState.categories)),
@@ -41,7 +50,8 @@ export class TransactionsOverviewComponent {
   ]
 
   filterForm = this.fb.group({
-    search: this.fb.control<string|null>(null)
+    search: this.fb.control<string|null>(null),
+    categoryId: this.fb.control<number|null>(null)
   })
 
   data$ = combineLatest({
@@ -58,4 +68,8 @@ export class TransactionsOverviewComponent {
           account: a.accounts.find(c => c.id === x.accountId)?.name,
         }))))
   }));
+
+  openTransactionOverlay(event: {id: number}){
+    this.dialogService.open(TransactionOverlayComponent, MAT_DIALOG_RIGHT_OVERLAY_CONFIG);
+  }
 }
