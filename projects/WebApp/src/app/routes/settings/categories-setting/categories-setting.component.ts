@@ -1,6 +1,9 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {CategoriesTreeComponent} from './categories-tree/categories-tree.component';
 import {TranslatePipe} from '@ngx-translate/core';
+import {Store} from '@ngxs/store';
+import {CategoriesState} from '../../../states/categories.state';
+import {map} from 'rxjs';
 
 @Component({
   selector: 'app-categories-setting',
@@ -12,6 +15,10 @@ import {TranslatePipe} from '@ngx-translate/core';
   styleUrl: './categories-setting.component.css'
 })
 export class CategoriesSettingComponent {
+  private readonly store = inject(Store);
+  public incomeCategories$ = this.store.select(CategoriesState.incomeCategories);
+  public incomeRootCategory$ = this.incomeCategories$.pipe(map(categories => categories.find(c => !c.parentId));
+  public incomeChildCategoryTree$ = this.incomeCategories$.pipe(map)
   public incomeCategories = CATEGORIES.income;
   public expensesCategories = CATEGORIES.expenses;
 }

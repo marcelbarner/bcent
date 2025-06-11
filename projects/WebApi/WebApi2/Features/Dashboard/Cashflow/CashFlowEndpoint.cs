@@ -25,16 +25,19 @@ sealed class CashflowEndpoint(DatabaseContext databaseContext)
                 Amount = c.CategoryValueInPeriod(req.From.Value)
             }).ToListAsync(ct);
         var result = new List<CashFlowItem>();
-        foreach (var item in x)
+        foreach (var item in x.Where(x => x.ParentId is not null))
         {
             var cashflowItem =item.Type == TransactionCategoryType.Income ?
                 new CashFlowItem(item.Id.ToString(), item.ParentId?.ToString() ?? "income", GetAggregatedCategoryValue(item, x))
                 : new CashFlowItem(item.ParentId?.ToString() ?? "expense", item.Id.ToString() , -1*GetAggregatedCategoryValue(item, x));
             result.Add(cashflowItem);
         }
-        var expenses = result.Where(c => c.From == "expense").Sum(x => x.Amount);
-        var incomes = result.Where(c => c.To == "income").Sum(x => x.Amount);
-        result.Add(new CashFlowItem("income", "expense", Math.Min(expenses, incomes)));
+
+        var expenseCategory = x.First(c => c.ParentId is null && c.Type == TransactionCategoryType.Expense);
+        var incomeCategory = x.First(c => c.ParentId is null && c.Type == TransactionCategoryType.Income);
+        var expenses = -1*GetAggregatedCategoryValue(expenseCategory, x);
+        var incomes = GetAggregatedCategoryValue(incomeCategory, x);
+        result.Add(new CashFlowItem(incomeCategory.Id.ToString(), expenseCategory.Id.ToString(), Math.Min(expenses, incomes)));
         result = result.Where(c => c.Amount != 0).ToList();
         
         await SendAsync(result, cancellation: ct);

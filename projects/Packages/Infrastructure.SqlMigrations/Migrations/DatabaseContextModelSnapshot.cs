@@ -22,6 +22,79 @@ namespace Infrastructure.SqlMigrations.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Infrastructure.Rule", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<int>("OrderNumber")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("StopAfter")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rules");
+                });
+
+            modelBuilder.Entity("Infrastructure.RuleAction", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
+
+                    b.Property<long>("RuleId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RuleId");
+
+                    b.ToTable("RuleActions");
+
+                    b.HasDiscriminator().HasValue("RuleAction");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("Infrastructure.RuleCondition", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(21)
+                        .HasColumnType("nvarchar(21)");
+
+                    b.Property<long>("RuleId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RuleId");
+
+                    b.ToTable("RuleConditions");
+
+                    b.HasDiscriminator().HasValue("RuleCondition");
+
+                    b.UseTphMappingStrategy();
+                });
+
             modelBuilder.Entity("Infrastructure.Transaction", b =>
                 {
                     b.Property<long>("Id")
@@ -78,6 +151,9 @@ namespace Infrastructure.SqlMigrations.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<bool>("IsDefault")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -95,6 +171,53 @@ namespace Infrastructure.SqlMigrations.Migrations
                     b.HasIndex("ParentCategoryId");
 
                     b.ToTable("TransactionCategories");
+                });
+
+            modelBuilder.Entity("Infrastructure.RuleSetCategoryAction", b =>
+                {
+                    b.HasBaseType("Infrastructure.RuleAction");
+
+                    b.Property<long>("CategoryId")
+                        .HasColumnType("bigint");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasDiscriminator().HasValue("RuleSetCategoryAction");
+                });
+
+            modelBuilder.Entity("Infrastructure.RuleAmountIsCondition", b =>
+                {
+                    b.HasBaseType("Infrastructure.RuleCondition");
+
+                    b.Property<int>("AmountIs")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Value")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasDiscriminator().HasValue("RuleAmountIsCondition");
+                });
+
+            modelBuilder.Entity("Infrastructure.RuleAction", b =>
+                {
+                    b.HasOne("Infrastructure.Rule", "Rule")
+                        .WithMany("Actions")
+                        .HasForeignKey("RuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Rule");
+                });
+
+            modelBuilder.Entity("Infrastructure.RuleCondition", b =>
+                {
+                    b.HasOne("Infrastructure.Rule", "Rule")
+                        .WithMany("Conditions")
+                        .HasForeignKey("RuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Rule");
                 });
 
             modelBuilder.Entity("Infrastructure.Transaction", b =>
@@ -121,6 +244,24 @@ namespace Infrastructure.SqlMigrations.Migrations
                         .HasForeignKey("ParentCategoryId");
 
                     b.Navigation("ParentCategory");
+                });
+
+            modelBuilder.Entity("Infrastructure.RuleSetCategoryAction", b =>
+                {
+                    b.HasOne("Infrastructure.TransactionCategory", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Infrastructure.Rule", b =>
+                {
+                    b.Navigation("Actions");
+
+                    b.Navigation("Conditions");
                 });
 
             modelBuilder.Entity("Infrastructure.TransactionAccount", b =>

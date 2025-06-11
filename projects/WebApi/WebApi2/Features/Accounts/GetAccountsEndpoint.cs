@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebApi2.Features.Accounts;
 
-sealed class AccountsEndpoint(DatabaseContext databaseContext)
+sealed class GetAccountsEndpoint(DatabaseContext databaseContext)
     : EndpointWithoutRequest<IReadOnlyList<Account>>
 {
     public override void Configure()
